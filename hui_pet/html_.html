@@ -1,0 +1,50 @@
+<html>
+<header>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</header>
+
+<body>
+    <table style="margin: 0px auto;">
+        <tr>
+            <td colspan="2" align="center"><img src="icon/people/woman.png" width="120" alt="你自己"></td>
+            <td colspan="2" align="center"><img src="icon/pet/cat/sandbox.png" width="120" alt="寵物"></td>
+            <td colspan="2" align="center"><img src="icon/people/woman2.png" width="120" alt="對方"></td>
+        </tr>
+        <tr>
+            <td><button id="change_hui_icon" type="button">更換icon</button></td>
+            <td><button id="insert_hui_talking" type="button">新增對話</button></td>
+            <td><button id="change_pet_icon" type="button">更換icon</button></td>
+            <td><button id="insert_pet_talking" type="button">新增對話</button></td>
+            <td><button id="change_user_icon" type="button">更換icon</button></td>
+            <td><button id="insert_user_talking" type="button">新增對話</button></td>
+        </tr>
+    </table>
+
+
+    <table style="margin: 0px auto;" id="tb_test">
+        <tr id="tr_tittle">
+            <td>測試1</td>
+            <td>測試2</td>
+            <td>測試3</td>
+        </tr>
+    </table>
+</body>
+
+</html>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  var i = 1;
+  $("#change_hui_icon").click(function() {
+//   $('tr').find('input').prop('disabled',true)
+    $('#tr_newAdd' + i).html("<td>" + (i + 1) + "</td><td>__2__" + i + "</td><td>__3__" + i + "</td>");
+
+    $('#tb_test').append('<tr id="tr_newAdd' + (i + 1) + '"></tr>');
+    i++;
+  });
+});
+</script>
+
+

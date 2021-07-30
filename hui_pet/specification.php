@@ -1,0 +1,296 @@
+
+<?php
+// <table>
+// <tr>
+//   <td>國家</td>
+//   <td>首都</td>
+//   <td>人口</td>
+//   <td>語言</td>
+// </tr>
+// <tr>
+//   <td>USA</td>
+//   <td>Washington D.C.</td>
+//   <td>309 million</td>
+//   <td>English</td>
+// </tr>
+// <tr>
+//   <td>Sweden</td>
+//   <td>Stockholm</td>
+//   <td>9 million</td>
+//   <td>Swedish</td>
+// </tr>
+// </table>
+echo "<table border='1'>";
+
+echo "<tr>";
+    echo "<td>客戶表</td>";
+echo "</tr>";
+echo "<tr>";
+    echo "<td>欄位說明</td>";
+    echo "<td>人物編號</td>";
+    echo "<td>姓名/綽號</td>";
+    echo "<td>年齡</td>";
+    echo "<td>如何認識</td>";
+    echo "<td>性別</td>";
+    echo "<td>客戶簡介</td>";
+    echo "<td>照片</td>";
+    echo "<td>飼養偏好</td>";
+    echo "<td>洽詢時間</td>";
+    echo "<td>第一次溝通時間</td>";
+    echo "<td>消費總金額</td>";
+    echo "<td>聯絡方式</td>";
+    echo "<td>聯絡ID</td>";
+echo "</tr>";
+echo "<tr>";
+    echo "<td>key</td>";
+    echo "<td>uid</td>";
+    echo "<td>u_name</td>";
+    echo "<td>age</td>";
+    echo "<td>reference</td>";
+    echo "<td>sex</td>";
+    echo "<td>describe</td>";
+    echo "<td>picture</td>";
+    echo "<td>trend</td>";
+    echo "<td>date</td>";
+    echo "<td>f_date</td>";
+    echo "<td>total_pay</td>";
+    echo "<td>contact_type</td>";
+    echo "<td>contact_id</td>	";
+echo "</tr>";
+echo "<tr>";
+    echo "<td></td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>Int</td>";
+    echo "<td>text</td>";
+    echo "<td>Boolean</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>Int</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>Int</td>";
+    echo "<td>Int</td>";
+    echo "<td>text</td>";
+echo "</tr>";
+echo "<tr>";
+    echo "<td>type</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>Int</td>";
+    echo "<td>string</td>";
+    echo "<td>Boolean</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>Int</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>Int</td>";
+    echo "<td>Int</td>";
+    echo "<td>string</td>";
+echo "</tr>";
+
+echo "<tr>";
+    echo "<td>寵物表</td>";
+echo "</tr>";
+
+echo "<tr>";
+    echo "<td>欄位說明</td>";
+    echo "<td>寵物編號</td>";
+    echo "<td>主人編號</td>";
+    echo "<td>姓名/綽號</td>";
+    echo "<td>年齡</td>";
+    echo "<td>寵物種類</td>";
+    echo "<td>寵物品種</td>";
+    echo "<td>性別</td>";
+    echo "<td>寵物簡介</td>";
+    echo "<td>照片1</td>";
+    echo "<td>照片2</td>";
+    echo "<td>已知問題1</td>";
+    echo "<td>回答1</td>";
+    echo "<td>已知問題2</td>";
+    echo "<td>回答2</td>";
+    echo "<td>已知問題3</td>";
+    echo "<td>回答3</td>";
+echo "</tr>";
+
+echo "<tr>";
+    echo "<td>key</td>";
+    echo "<td>pid</td>";
+    echo "<td>uid</td>";
+    echo "<td>p_name</td>";
+    echo "<td>age</td>";
+    echo "<td>p_type</td>";
+    echo "<td>p_variety</td>";
+    echo "<td>sex</td>";
+    echo "<td>describe</td>";
+    echo "<td>picture_1</td>";
+    echo "<td>picture_2</td>";
+    echo "<td>known_question_1</td>";
+    echo "<td>known_answer_1</td>";
+    echo "<td>known_question_2</td>";
+    echo "<td>known_answer_2</td>";
+    echo "<td>known_question_3</td>";
+    echo "<td>known_answer_3</td>";
+echo "</tr>";
+echo "<tr>";
+    echo "<td></td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>Int</td>";
+    echo "<td>Int</td>";
+    echo "<td>text</td>";
+    echo "<td>Boolean</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+echo "</tr>";
+echo "<tr>";
+    echo "<td>type</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>Int</td>";
+    echo "<td>Int</td>";
+    echo "<td>text</td>";
+    echo "<td>Boolean</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+echo "</tr>";
+
+echo "<tr></tr>";
+
+echo "<tr><td>消費紀錄表</td></tr>";
+echo "<tr>";
+    echo "<td>欄位說明</td>";
+    echo "<td>人物編號</td>";
+    echo "<td>寵物編號</td>";
+    echo "<td>消費金額</td>";
+    echo "<td>溝通時間(起)</td>";
+    echo "<td>溝通時間(迄)</td>";
+    echo "<td>提出問題1</td>";
+    echo "<td>回答1</td>";
+    echo "<td>提出問題2</td>";
+    echo "<td>回答2</td>";
+    echo "<td>提出問題3</td>";
+    echo "<td>回答3</td>";
+    echo "<td>額外補充</td>";
+echo "</tr>";
+echo "<tr>";
+    echo "<td>key</td>";
+    echo "<td>uid</td>";
+    echo "<td>pid</td>";
+    echo "<td>pay</td>";
+    echo "<td>start_at</td>";
+    echo "<td>end_at</td>";
+    echo "<td>nwq_question_1</td>";
+    echo "<td>nwq_answer_1</td>";
+    echo "<td>nwq_question_2</td>";
+    echo "<td>nwq_answer_2</td>";
+    echo "<td>nwq_question_3</td>";
+    echo "<td>nwq_answer_3</td>";
+    echo "<td>extra_note</td>";
+echo "</tr>";
+echo "<tr>";
+    echo "<td></td><td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>Int</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+echo "</tr>";
+echo "<tr>";
+    echo "<td>type</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>Int</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+echo "</tr>";
+
+
+echo "<tr>";
+    echo "<td>對話紀錄表</td>";
+echo "</tr>";
+echo "<tr>";
+    echo "<td>欄位說明</td>";
+    echo "<td>紀錄編號</td>";
+    echo "<td>溝通日期</td>";
+    echo "<td>人物編號</td>";
+    echo "<td>寵物編號</td>";
+    echo "<td>發言人</td>";
+    echo "<td>名稱</td>";
+    echo "<td>方向</td>";
+    echo "<td>寵物種類</td>";
+    echo "<td>圖檔</td>";
+    echo "<td>敘述內容</td>";
+echo "</tr>";
+echo "<tr>";
+    echo "<td>key</td>";
+    echo "<td>consumption_id</td>";
+    echo "<td>date</td>";
+    echo "<td>uid</td>";
+    echo "<td>pid</td>";
+    echo "<td>speaker</td>";
+    echo "<td>name</td>";
+    echo "<td>direction</td>";
+    echo "<td>p_type</td>";
+    echo "<td>icon</td>";
+    echo "<td>content</td>";
+echo "</tr>";
+echo "<tr>";
+    echo "<td></td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+    echo "<td>Boolean</td>";
+    echo "<td>Int</td>";
+    echo "<td>text</td>";
+    echo "<td>text</td>";
+echo "</tr>";
+echo "<tr>";
+    echo "<td>type</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+    echo "<td>Boolean</td>";
+    echo "<td>Int</td>";
+    echo "<td>string</td>";
+    echo "<td>string</td>";
+echo "</tr>";
+echo "</table>";
+echo "<hr>";
+?>
