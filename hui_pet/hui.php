@@ -84,6 +84,17 @@ function phpIcon($role){
     echo "<button>button $role </button>";
 }
 
+function showRecord($list){
+    foreach ($list as $key => $value) {
+        echo "key: $key value: ";
+        foreach ($key as $value) {
+            echo "$value ";
+        }
+        echo "<br>";
+    }
+}
+
+
 ?>
 
 <html>
@@ -111,24 +122,21 @@ function phpIcon($role){
 <table style="margin:0 auto" width="100%" id="tb_test">
     <Thead>    
         <tr id="tr_tittle" bgcolor="#DDDDDD">
-            <th>第一欄</th>
-            <th>第二欄</th>
-            <th>第三欄</th>
-            <th>第四欄</th>
+            <th width="10%">No.</th>
+            <th width="80%" colspan="2"></th>
+            <th width="10%">編輯</th>
         </tr>
     </Thead>
     <tbody>
-    <tr id="tr_newAdd0">
-    </tr>
+ 
 
-    <!-- <tr id="tr_newAdd0"></tr> -->
     </tbody>
 
 
 </table>
 
 <table>
-    <tr id="tr_newAdd0">
+    <tr id="tr_stored">
         <td><button id="store_record_list" type="button" >儲存對話</button></td>
     </tr>
 </table>
@@ -141,7 +149,7 @@ function phpIcon($role){
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <script type="text/javascript">
 var i = 0;
-console.log("out "+i);
+
 
 var tempRecordList = [];
 var recordList = [];
@@ -162,47 +170,22 @@ $("#store_record_list").click(function() {
     storeRecordList();
 });
 
-// let: 區域變數 var: 全域變數
-function storeRecordList() {
-    // let length = tempRecordList.length
-
-    // for (let index = 0; index < length; index++) {
-    //     recordList[index] = new Array();
-
-    //     recordList[index].push( document.getElementById(tempRecordList[index]).cells[1] );
-    // }
-    // console.log(recordList);
-    
-    var tbl = document.getElementById("tb_test");
-    var numRows = tbl.rows.length;
-
-    for (let i = 1; i < numRows; i++) {
-        let ID = tbl.rows[i].id;
-        let cells = tbl.rows[i].getElementsByTagName('td');
-        for (let j=0,it=cells.length;j<it;j++) {
-            // alert the table cell contents
-            // you probably do not want to do this, but let's just make
-            // it SUPER-obvious  that it works :)
-            if (cells[j]) {
-                
-            }
-            console.log("i:"+ i+" j:"+ j +" "+cells[j].textContent);
-        }
-    }
-    //     foreach ($recordList as $key => $value) {
-    //         echo $value."<br>";
-    //     }
-    
-}
-
 // 新增 row
 function addOneRawTable(i,role) {
-    console.log("addOneRawTable: " + i);
+    // console.log("addOneRawTable: " + i);
     getRoleInfo(role);
-    $('#tr_newAdd' + i).html('<td>' + i + '</td><td>' + role + '</td><td><input style="width:100%; heigth:100" name="'+role+'_data" value="'+role+i+'"/></td><td><button id="btn_insert_'+ i +'" onClick="deleteRow('+i+')">刪除</button></td>');
-    $('#tb_test').append('<tr id="tr_newAdd' + (i+1) + '"></tr>'); 
+    
+    $('#tb_test').append('<tr id="tr_newAdd' + i + '"></tr><tr id="tr_newEditor' + i + '"></tr>');
+    $('#tr_newAdd' + i).html('<td width="10%" rowspan="2">' + (i+1) + '</td><td width="10%">' + role + '</td><td width="70%"><input style="width:100%; heigth:100" name="speak_data" value=""/></td><td width="10%"><button id="btn_insert_'+ i +'" onClick="deleteRow('+i+')">刪除</button></td>');
+    $('#tr_newEditor' + i).html('<td width="90%" colspan="3" align="right"><button id="btn_left_'+i+'" onClick="letTextLeft(\''+i+'\',\''+role+'\')">靠左</button><button id="btn_right_'+i+'" onClick="letTextRight(\''+i+'\',\''+role+'\')">靠右</button></td>');
+    // document.getElementById('tb_test').insertRow(-1).innerHTML = '<td>' + (i+1) + '</td><td>' + role + '</td><td><input style="width:100%; heigth:100" name="speak_data" value=""/></td><td><button id="btn_insert_'+ i +'" onClick="deleteRow('+i+')">刪除</button></td>';
+    // document.getElementById('tb_test').insertRow(-1).innerHTML = '<td>' + (i+1) + '</td><td colspan="3" align="right"><button id="btn_left_'+i+' onClick="setTextLeft()">靠左</button><button id="btn_right_'+i+' onClick="setTextRight()">靠右</button></td>';
+    // document.getElementById('tb_test').insertRow(-1).innerHTML="tr_newEditor";
+    // $('#tb_test').append('<tr id="tr_newAdd' + (i+1) + '"></tr><tr id="tr_newEditor' + (i+1) + '"></tr>');
+    // $('#tb_test').append('<tr id="tr_newAdd' + (i+1) + '"></tr>');
+    
     tempRecordList.push("tr_newAdd"+i);
-    console.log("tempRecordList: " + tempRecordList);
+    // console.log("tempRecordList: " + tempRecordList);
 }
 
 // 刪除 row
@@ -211,6 +194,8 @@ function deleteRow(i) {
     // document.getElementById("tb_test").removeChild(0); //document.getElementById("tr_newAdd"+i)
 
 	var row = document.getElementById('tr_newAdd'+i);
+	row.parentElement.removeChild(row);
+    var row = document.getElementById('tr_newEditor'+i);
 	row.parentElement.removeChild(row);
     console.log("length: " + tempRecordList.length);
     if (tempRecordList.length > 0) {
@@ -222,12 +207,97 @@ function deleteRow(i) {
     // var child=document.getElementById("tr_newAdd"+i);
     // child.parentNode.removeChild(child);
 }
+
 function getRoleInfo(role) {
     // console.log("getRoleInfo: " + role);
 }
 
+// let: 區域變數 var: 全域變數
+function storeRecordList() {
+    // let length = tempRecordList.length
+
+    // for (let index = 0; index < length; index++) {
+    //     
+    //     recordList[index] = new Array();
+    //     recordList[index].push( document.getElementById(tempRecordList[index]).cells[1] );
+    // }
+    // console.log(recordList);
+   
+    var tbl = document.getElementById("tb_test");
+    var numRows = tbl.rows.length-1;
+    // console.log("size = "+ numRows +" "+(numRows-1)/2);
+    var obj = new Object();
+    obj.data = new Array();
+    // 取得 table 內所有資料
+    for (let i = 1; i < (numRows); i=i+1) {
+        let ID = tbl.rows[i].id;
+        
+        
+        if (i%2==1) {
+            recordList[i] = new Array();
+            var tr = document.querySelectorAll("#"+ID);
+            // console.log("ID = "+ ID);
+            let cells = tbl.rows[i].getElementsByTagName('td');
+            var data1 = new Object();
+        
+            for (let j=0,it=cells.length;j<it;j++) {
+                if (j == 1) {
+                    // let jData = JSON.stringify({
+                    //     "role" : cells[j].textContent
+                    // })
+                    // recordList[i].push( jData ); 
+                    data1.role = cells[j].textContent;
+                    // console.log("role: "+cells[j].textContent);
+                    // console.log("list: "+ jData);
+                    // console.log("i: "+ i + " cell[j]1: "+cells[j].textContent);
+                } else if (j == 2) {
+                    // let jData = JSON.stringify({
+                    //     "speak_data" : document.getElementsByName("speak_data")[(i-1)/2].value
+                    // })
+                    // recordList[i].push( jData );
+                    data1.speak_data =  document.getElementsByName("speak_data")[(i-1)/2].value;
+                    // console.log("input value: "+document.getElementsByName("speak_data")[i].value);        
+                    // console.log("list: "+jData);
+                    // console.log("i: "+ i + " cell[j]2: " + document.getElementsByName("speak_data")[(i-1)/2].value);
+                } 
+
+                
+            }
+            obj['data'].push(data1);
+        }
+        // var jsonString= JSON.stringify(data);
+        // console.log("JS ARRAY: "+i+" "+jsonString);
+        // var objString = JSON.parse(obj);
+        // obj['data'].push(data1);
+        // obj = JSON.stringify(objString);
+    }
+    // obj.data = JSON.stringify(recordList)
+    // showRecord(recordList);
+    console.log("list: " + JSON.stringify(obj));
+    
+}
+
+function letTextLeft(row,role) {
+    console.log("setTextLeft: " + row + role);
+    // event.srcElement.id
+    
+    let row1 = '<tr id="tr_newAdd' + row + '"><td width="10%" rowspan="2">' + (parseInt(row, 10)+1) + '</td><td width="10%">' + role + '</td><td width="70%"><input style="width:100%; heigth:100" name="speak_data" value=""/></td><td width="10%"><button id="btn_insert_'+ row +'" onClick="deleteRow('+row+')">刪除</button></td></tr>';
+    // $('#btn_insert_'+ i).parent().replaceWith(row1);
+    $('#tr_newAdd'+row).replaceWith(row1);
+}
+
+function letTextRight(row,role) {
+    console.log("setTextRight: " + row + role);
+    let row1 = '<tr id="tr_newAdd' + row + '"><td width="10%" rowspan="2">' + (parseInt(row, 10)+1) + '</td><td width="70%"><input style="width:100%; heigth:100" name="speak_data" value=""/></td><td width="10%">' + role + '</td><td width="10%"><button id="btn_insert_'+ row +'" onClick="deleteRow('+row+')">刪除</button></td></tr>';
+    // let row2 = '<td>e'+(i+1)+'</td><td colspan="2" align="right"><button id="btn_left_'+i+' onClick="setTextLeft('+i+')">靠左</button><button id="btn_right_'+i+' onClick="setTextRight('+i+')">靠右</button></td>'
+    
+    
+	// $("td#someid").parent().replaceWith(newtr);
+    $('#tr_newAdd'+row).replaceWith(row1);
+    // $('#btn_insert_'+ i).parent().replaceWith(row1);
+    // $('#tr_newEditor'+i).replaceWith(newtr);
+}
 
 </script>
 
-    
 
