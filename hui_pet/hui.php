@@ -280,15 +280,16 @@ function storeRecordList() {
 function letTextLeft(row,role) {
     console.log("setTextLeft: " + row + role);
     // event.srcElement.id
-    
-    let row1 = '<tr id="tr_newAdd' + row + '"><td width="10%" rowspan="2">' + (parseInt(row, 10)+1) + '</td><td width="10%">' + role + '</td><td width="70%"><input style="width:100%; heigth:100" name="speak_data" value=""/></td><td width="10%"><button id="btn_insert_'+ row +'" onClick="deleteRow('+row+')">刪除</button></td></tr>';
+    let tempText = document.getElementsByName("speak_data")[row].value 
+    let row1 = '<tr id="tr_newAdd' + row + '"><td width="10%" rowspan="2">' + (parseInt(row, 10)+1) + '</td><td width="10%">' + role + '</td><td width="70%"><input style="width:100%; heigth:100" name="speak_data" value="'+tempText+'"/></td><td width="10%"><button id="btn_insert_'+ row +'" onClick="deleteRow('+row+')">刪除</button></td></tr>';
     // $('#btn_insert_'+ i).parent().replaceWith(row1);
     $('#tr_newAdd'+row).replaceWith(row1);
 }
 
 function letTextRight(row,role) {
     console.log("setTextRight: " + row + role);
-    let row1 = '<tr id="tr_newAdd' + row + '"><td width="10%" rowspan="2">' + (parseInt(row, 10)+1) + '</td><td width="70%"><input style="width:100%; heigth:100" name="speak_data" value=""/></td><td width="10%">' + role + '</td><td width="10%"><button id="btn_insert_'+ row +'" onClick="deleteRow('+row+')">刪除</button></td></tr>';
+    let tempText = document.getElementsByName("speak_data")[row].value 
+    let row1 = '<tr id="tr_newAdd' + row + '"><td width="10%" rowspan="2">' + (parseInt(row, 10)+1) + '</td><td width="70%"><input style="width:100%; heigth:100" name="speak_data" value="'+tempText+'"/></td><td width="10%">' + role + '</td><td width="10%"><button id="btn_insert_'+ row +'" onClick="deleteRow('+row+')">刪除</button></td></tr>';
     // let row2 = '<td>e'+(i+1)+'</td><td colspan="2" align="right"><button id="btn_left_'+i+' onClick="setTextLeft('+i+')">靠左</button><button id="btn_right_'+i+' onClick="setTextRight('+i+')">靠右</button></td>'
     
     
