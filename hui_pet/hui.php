@@ -1,29 +1,30 @@
 
 <?php
-    mb_internal_encoding('UTF-8');
-    mb_http_input('UTF-8');
-    mb_http_output('UTF-8');
+mb_internal_encoding('UTF-8');
+mb_http_input('UTF-8');
+mb_http_output('UTF-8');
 echo '<h1>Smile Mi 的動物朋友</h1><hr>';
 
 // // Lobby ;
 // /**
 //  *  table (myself data)
-//  *  buttom (chang mydelf) (chang mydelf icon) 
-//  *         (insert custom) (find custom) 
+//  *  buttom (chang mydelf) (chang mydelf icon)
+//  *         (insert custom) (find custom)
 //  *         (insert pet) (find pet)
 //  *         (upload icon) (upload picture)
 //  *   **/
-
 
 $hui_uid = "hui_308"; //人物編號
 $hui_icon = "icon_308"; //人物icon
 $hui_name = "SmileMi"; //人物名稱
 
-function phpIcon($role){
+function phpIcon($role)
+{
     echo "<button>button $role </button>";
 }
 
-function showRecord($list){
+function showRecord($list)
+{
     foreach ($list as $key => $value) {
         echo "key: $key value: ";
         foreach ($key as $value) {
@@ -33,59 +34,59 @@ function showRecord($list){
     }
 }
 
-
 ?>
 
 <html>
-<header>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-</header>
+    <header>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    </header>
+    <body onload="init()">
+        <table style="margin: 0px auto;">
+            <tr>
+                <td colspan="2" align="center"><img src="icon/people/woman.png" width="120"  alt="你自己"></td>
+                <td colspan="2" align="center"><img src="icon/pet/cat/sandbox.png" width="120" alt="寵物"></td>
+                <td colspan="2" align="center"><img src="icon/people/woman2.png" width="120" alt="對方"></td>
+            </tr>
+            <tr>
+                <td><button id="change_hui_icon" type="button" >更換icon</button></td>
+                <td><button id="insert_hui_talking" type="button" >新增對話</button></td>
+                <td><button id="change_pet_icon" type="button" >更換icon</button></td>
+                <td><button id="insert_pet_talking" type="button" >新增對話</button></td>
+                <td><button id="change_user_icon" type="button" >更換icon</button></td>
+                <td><button id="insert_user_talking" type="button" >新增對話</button></td>
+                </tr>
+        </table>
 
-<table style="margin: 0px auto;">
-    <tr>
-        <td colspan="2" align="center"><img src="icon/people/woman.png" width="120"  alt="你自己"></td>
-        <td colspan="2" align="center"><img src="icon/pet/cat/sandbox.png" width="120" alt="寵物"></td>
-        <td colspan="2" align="center"><img src="icon/people/woman2.png" width="120" alt="對方"></td>
-    </tr>
-    <tr>
-        <td><button id="change_hui_icon" type="button" >更換icon</button></td>
-        <td><button id="insert_hui_talking" type="button" >新增對話</button></td>
-        <td><button id="change_pet_icon" type="button" >更換icon</button></td>
-        <td><button id="insert_pet_talking" type="button" >新增對話</button></td>
-        <td><button id="change_user_icon" type="button" >更換icon</button></td>
-        <td><button id="insert_user_talking" type="button" >新增對話</button></td>
-        </tr>
-</table>
-
-<div style="margin:0 100 auto;border:1px #cccccc solid;">
-<table style="margin:0 auto" width="100%" id="tb_test">
-    <Thead>    
-        <tr id="tr_tittle" bgcolor="#DDDDDD">
-            <th width="5%">No.</th>
-            <th width="80%" colspan="1"></th>
-            <th width="15%">編輯</th>
-        </tr>
-    </Thead>
-    <tbody id="record_tbody">
- 
-
-    </tbody>
+        <div style="margin:0 100 auto;border:1px #cccccc solid;">
+        <table style="margin:0 auto" width="100%" id="tb_test">
+            <Thead>
+                <tr id="tr_tittle" bgcolor="#DDDDDD">
+                    <th width="5%">No.</th>
+                    <th width="80%" colspan="1"></th>
+                    <th width="15%">編輯</th>
+                </tr>
+            </Thead>
+            <tbody id="record_tbody">
 
 
-</table>
+            </tbody>
 
-<table>
-    <tr id="tr_stored">
-        <td><button id="store_record_list" type="button" >上傳記錄</button></td>
-        <td><button id="remove_all" type="button" >清空對話</button></td>
-    </tr>
-</table>
 
-</div>
+        </table>
+
+        <table>
+            <tr id="tr_stored">
+                <td><button id="store_record_list" type="button" >上傳記錄</button></td>
+                <td><button id="remove_all" type="button" >清空對話</button></td>
+            </tr>
+        </table>
+
+        </div>
+    </body>
 </html>
 
 
-    
+
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <script type="text/javascript">
 
@@ -100,11 +101,7 @@ var objChatRecord = new Object();
 var tempRecordList = [];
 var recordList = [];
 
-if (window.sessionStorage.getItem('haveRecord')) {
-    console.log("+++ : " + window.sessionStorage.getItem('haveRecord')+ " - " + window.sessionStorage.getItem('temp_chatRecord'));
-    objChatRecord = JSON.parse(window.sessionStorage.getItem('temp_chatRecord'));
-    backupChatRecord(objChatRecord);
-}
+
 
 $("#insert_hui_talking").click(function() {
     addOneRawTable(tbRow,"hui");
@@ -133,7 +130,7 @@ function addOneRawTable(i,role) {
     console.log("addOneRawTable: " + i);
     let roleInfo = new Array();
     roleInfo = Array.from(getRoleInfo(role));
-    
+
     $('#tb_test').append('<tr id="tr_newAdd' + i + '"></tr><tr id="tr_newEditor' + i + '"></tr>');
     $('#tr_newAdd' + i).html('<td width="5%" rowspan="2">' + (i+1) + '</td><td width="80%"><label name="roleInfo" style="display:none">'+roleInfo[1]+'</label><label name="direction" style="display:none">'+true+'</label><img src="icon/'+roleInfo[0]+'" width="30"> : <input style="width:90%; heigth:100" name="speak_data" value=""/></td><td width=15%><button id="btn_insert_'+ i +'" onClick="deleteRow('+i+')">刪除</button></td>');
     $('#tr_newEditor' + i).html('<td width="95%" colspan="2" align="right"><button id="btn_left_'+i+'" onClick="letTextLeft(\''+i+'\',\''+role+'\')">靠左</button><button id="btn_right_'+i+'" onClick="letTextRight(\''+i+'\',\''+role+'\')">靠右</button></td>');
@@ -142,7 +139,7 @@ function addOneRawTable(i,role) {
     // document.getElementById('tb_test').insertRow(-1).innerHTML="tr_newEditor";
     // $('#tb_test').append('<tr id="tr_newAdd' + (i+1) + '"></tr><tr id="tr_newEditor' + (i+1) + '"></tr>');
     // $('#tb_test').append('<tr id="tr_newAdd' + (i+1) + '"></tr>');
-    
+
     tempRecordList.push("tr_newAdd"+i);
     tbRow++;
     // console.log("tempRecordList: " + tempRecordList);
@@ -159,7 +156,7 @@ function deleteRow(i) {
 	row.parentElement.removeChild(row);
     console.log("length: " + tempRecordList.length);
     if (tempRecordList.length > 0) {
-        
+
         let position = tempRecordList.indexOf('tr_newAdd'+i);
         tempRecordList.splice(position, 1);
         console.log("tempRecordList: " + tempRecordList);
@@ -202,17 +199,17 @@ function storeRecordList() {
     // let length = tempRecordList.length
 
     // for (let index = 0; index < length; index++) {
-    //     
+    //
     //     recordList[index] = new Array();
     //     recordList[index].push( document.getElementById(tempRecordList[index]).cells[1] );
     // }
     // console.log(recordList);
-    
+
     var tbl = document.getElementById("tb_test");
     var numRows = tbl.rows.length-1;
     // console.log("size = "+ numRows +" "+(numRows-1)/2);
-    let time = new Date();
-    
+    // let time = new Date();
+
     objChatRecord.data = new Array();
     // objChatRecord.time = time.getFullYear()+'-'+(time.getMonth()+1)+'-'+time.getDate()+' '+time.getHours()+':'+time.getMinutes()+':'+time.getSeconds()+'T'+time.getTimezoneOffset();
     // objChatRecord.time = new Date().toLocaleString( {timeZone: 'Asia/Taipei' , hour12: false , year: 'numeric',  hour: '2-digit', minute: '2-digit' ,day: 'numeric'} );
@@ -220,21 +217,21 @@ function storeRecordList() {
     // 取得 table 內所有資料
     for (let i = 1; i < (numRows); i=i+1) {
         let ID = tbl.rows[i].id;
-        
-        
+
+
         if (i%2==1) {
             recordList[i] = new Array();
             var tr = document.querySelectorAll("#"+ID);
             // console.log("ID = "+ ID);
             let cells = tbl.rows[i].getElementsByTagName('td');
             var data1 = new Object();
-        
+
             for (let j=0,it=cells.length;j<it;j++) {
                 if (j == 1) {
                     // let jData = JSON.stringify({
                     //     "role" : cells[j].textContent
                     // })
-                    // recordList[i].push( jData ); 
+                    // recordList[i].push( jData );
                     // data1.role = cells[j].textContent;
                     // console.log("role: "+cells[j].textContent);
                     // console.log("list: "+ jData);
@@ -247,12 +244,12 @@ function storeRecordList() {
                     data1.role = document.getElementsByName("roleInfo")[(i-1)/2].textContent;
                     data1.speak_data = document.getElementsByName("speak_data")[(i-1)/2].value;
                     data1.direction = document.getElementsByName("direction")[(i-1)/2].textContent;
-                    // console.log("input value: "+document.getElementsByName("speak_data")[i].value);        
+                    // console.log("input value: "+document.getElementsByName("speak_data")[i].value);
                     // console.log("list: "+jData);
                     // console.log("i: "+ i + " cell[j]2: " + document.getElementsByName("speak_data")[(i-1)/2].value);
-                } 
+                }
 
-                
+
             }
             objChatRecord['data'].push(data1);
         }
@@ -264,9 +261,9 @@ function storeRecordList() {
     }
     // obj.data = JSON.stringify(recordList)
     // showRecord(recordList);
-    
+
     console.log("list: " + JSON.stringify(objChatRecord));
-    
+
 }
 
 function letTextLeft(row,role) {
@@ -286,8 +283,8 @@ function letTextRight(row,role) {
     let tempText = document.getElementsByName("speak_data")[row-countDelete].value;
     let row1 = '<tr id="tr_newAdd' + row + '"><td width="5%" rowspan="2">' + (parseInt(row, 10)+1) + '</td><td width="80%"><label name="roleInfo" style="display:none">'+roleInfo[1]+'</label><label name="direction" style="display:none">'+false+'</label><input style="width:90%; heigth:100" name="speak_data" value="'+tempText+'"/> : <img src="icon/'+roleInfo[0]+'" width="30"></td><td width="15%"><button id="btn_insert_'+ row +'" onClick="deleteRow('+row+')">刪除</button></td></tr>';
     // let row2 = '<td>e'+(i+1)+'</td><td colspan="2" align="right"><button id="btn_left_'+i+' onClick="setTextLeft('+i+')">靠左</button><button id="btn_right_'+i+' onClick="setTextRight('+i+')">靠右</button></td>'
-    
-    
+
+
 	// $("td#someid").parent().replaceWith(newtr);
     $('#tr_newAdd'+row).replaceWith(row1);
     // $('#btn_insert_'+ i).parent().replaceWith(row1);
@@ -318,9 +315,7 @@ window.onbeforeunload = function() {
     window.sessionStorage.setItem('loadcount', loadcount);
     window.sessionStorage.setItem('temp_chatRecord', JSON.stringify(objChatRecord));
 
-
-
-  return "on";
+    return;
 };
 // 關閉時提醒(chrome不適用，僅IE可用)
 // window.onunload = function(){
@@ -329,17 +324,24 @@ window.onbeforeunload = function() {
 
 
 // init載入重整前資訊
+function init(){
+    if (window.sessionStorage.getItem('haveRecord')==='false' || window.sessionStorage.getItem('haveRecord')===null) return;
+    console.log("+++ : " + window.sessionStorage.getItem('haveRecord')+ " - " + window.sessionStorage.getItem('temp_chatRecord'));
+    objChatRecord = JSON.parse(window.sessionStorage.getItem('temp_chatRecord'));
+    backupChatRecord(objChatRecord);
+}
+
 function backupChatRecord(obj){
     console.log("backupChatRecord : "+ JSON.stringify(obj));
     console.log("objChatRecord time: " + obj.time );
     console.log("objChatRecord lengh: " + obj.data.length );
     console.log("objChatRecord lengh: " + Object.keys(obj.data).length );
     let index = Object.keys(obj.data).length;
-    tbRow = index===0? 0 : index - 1;
+     tbRow = index===0? 0 : index - 1;
     for (let i = 0; i < index; i++) {
         let role = obj.data[i].role;
         addOneRawTable(i,role);
-        
+
         document.getElementsByName("speak_data")[i].value = [obj.data[i].speak_data];
 
         console.log("direction: "+obj.data[i].direction);
@@ -354,7 +356,7 @@ function backupChatRecord(obj){
 
 function uploadToDB(){
     storeRecordList();
-    
+
 }
 
 
