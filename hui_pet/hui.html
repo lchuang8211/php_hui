@@ -1,46 +1,13 @@
 
-<?php
-mb_internal_encoding('UTF-8');
-mb_http_input('UTF-8');
-mb_http_output('UTF-8');
-echo '<h1>Smile Mi 的動物朋友</h1><hr>';
-
-// // Lobby ;
-// /**
-//  *  table (myself data)
-//  *  buttom (chang mydelf) (chang mydelf icon)
-//  *         (insert custom) (find custom)
-//  *         (insert pet) (find pet)
-//  *         (upload icon) (upload picture)
-//  *   **/
-
-$hui_uid = "hui_308"; //人物編號
-$hui_icon = "icon_308"; //人物icon
-$hui_name = "SmileMi"; //人物名稱
-
-function phpIcon($role)
-{
-    echo "<button>button $role </button>";
-}
-
-function showRecord($list)
-{
-    foreach ($list as $key => $value) {
-        echo "key: $key value: ";
-        foreach ($key as $value) {
-            echo "$value ";
-        }
-        echo "<br>";
-    }
-}
-
-?>
-
 <html>
     <header>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script>
+
+        </script>
     </header>
     <body onload="init()">
+    <h1>Smile Mi 的動物朋友</h1><hr>
         <table style="margin: 0px auto;">
             <tr>
                 <td colspan="2" align="center"><img src="icon/people/woman.png" width="120"  alt="你自己"></td>
@@ -101,7 +68,11 @@ var objChatRecord = new Object();
 var tempRecordList = [];
 var recordList = [];
 
-
+function init(){
+    if (window.sessionStorage.getItem('haveRecord')==='false' || window.sessionStorage.getItem('haveRecord')===null) return;
+    objChatRecord = JSON.parse(window.sessionStorage.getItem('temp_chatRecord'));
+    backupChatRecord(objChatRecord);
+}
 
 $("#insert_hui_talking").click(function() {
     addOneRawTable(tbRow,"hui");
@@ -323,35 +294,26 @@ window.onbeforeunload = function() {
 // }
 
 
-// init載入重整前資訊
-function init(){
-    if (window.sessionStorage.getItem('haveRecord')==='false' || window.sessionStorage.getItem('haveRecord')===null) return;
-    console.log("+++ : " + window.sessionStorage.getItem('haveRecord')+ " - " + window.sessionStorage.getItem('temp_chatRecord'));
-    objChatRecord = JSON.parse(window.sessionStorage.getItem('temp_chatRecord'));
-    backupChatRecord(objChatRecord);
-}
 
+// init載入重整前資訊
 function backupChatRecord(obj){
-    console.log("backupChatRecord : "+ JSON.stringify(obj));
-    console.log("objChatRecord time: " + obj.time );
-    console.log("objChatRecord lengh: " + obj.data.length );
-    console.log("objChatRecord lengh: " + Object.keys(obj.data).length );
+    // console.log("backupChatRecord : "+ JSON.stringify(obj));
+    // console.log("objChatRecord time: " + obj.time );
+    // console.log("objChatRecord lengh: " + obj.data.length );
+    // console.log("objChatRecord lengh: " + Object.keys(obj.data).length );
     let index = Object.keys(obj.data).length;
      tbRow = index===0? 0 : index - 1;
     for (let i = 0; i < index; i++) {
         let role = obj.data[i].role;
         addOneRawTable(i,role);
-
         document.getElementsByName("speak_data")[i].value = [obj.data[i].speak_data];
-
-        console.log("direction: "+obj.data[i].direction);
+        // console.log("direction: "+obj.data[i].direction);
         if(obj.data[i].direction == "true")
             letTextLeft(i,role);
         else
             letTextRight(i,role);
 
     }
-
 }
 
 function uploadToDB(){
