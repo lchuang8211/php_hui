@@ -8,6 +8,44 @@
     </header>
     <body onload="init()">
     <h1>Smile Mi 的動物朋友</h1><hr>
+    <div id="divInsertUserInfo">
+
+        <div id="topBtnForUser" style="margin: 0px auto;"><button>新增使用者</button> <button>搜尋使用者</button> </div>
+
+        <table id="tb_insertUserInfo" style="margin: 0px auto;">
+            <tr>
+                <td colspan="2" align="center"><img src="icon/people/user_default.png" width="120"> </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"> <form enctype="multipart/form-data" method="post" id="formUserPicture" action="http://127.0.0.1/uploadUserPicture.php">
+                    <input id='userPicture' type='file' name='uPicture'/></form>
+                    <button id="btnUploadUserPicture">上傳照片</button></td>
+            </tr>
+
+            <tr>
+                <td>姓名/綽號：</td>
+                <td><input id="u_name"></td>
+                <td>年齡：</td>
+                <td><input id="age"></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+            </tr>
+            <tr>
+                <td><button id="btnInsertUserInfo">新增使用者</button><button id="btnInsertUserInfo">清空資料</button></td>
+            </tr>
+        </table>
+    </div>
+    <div id="divInsertChatRecord" >
         <table style="margin: 0px auto;">
             <tr>
                 <td colspan="2" align="center"><img src="icon/people/woman.png" width="120"  alt="你自己"></td>
@@ -49,9 +87,15 @@
         </table>
 
         </div>
+    </div>
     </body>
 </html>
-
+                <!-- <td colspan="2" align="center"><img src="icon/people/user_default.png" width="120"> </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"> <form enctype="multipart/form-data" method="post" id="formUserPicture" action="http://127.0.0.1/uploadUserPicture.php">
+                    <input id='userPicture' type='file' name='uPicture'/></form>
+                    <button id="btnUploadUserPicture">上傳照片</button></td> -->
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
@@ -72,7 +116,20 @@ function init(){
     if (window.sessionStorage.getItem('haveRecord')==='false' || window.sessionStorage.getItem('haveRecord')===null) return;
     objChatRecord = JSON.parse(window.sessionStorage.getItem('temp_chatRecord'));
     backupChatRecord(objChatRecord);
+    getUserInfoFromDB();
 }
+
+$("#btnUploadUserPicture").click(function() {
+    console.log("btnUploadUserPicture click");
+    document.getElementById("userPicture").click();
+});
+$("#userPicture").change(function(e) {
+    let reader = new FileReader();
+    
+    reader.onload = function(e){
+        
+    }
+});
 
 $("#insert_hui_talking").click(function() {
     addOneRawTable(tbRow,"hui");
@@ -318,10 +375,25 @@ function backupChatRecord(obj){
 
 function uploadToDB(){
     storeRecordList();
-
+    console.log("uploadToDB: "+JSON.stringify(objChatRecord));
+    let request= new XMLHttpRequest();
+    request.open("post", "http://127.0.0.1/hui_pet/insertChatRecord.php");
+    request.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+    request.onload = function(){
+        alert(this.responseText);
+    }
+    request.send(JSON.stringify(objChatRecord));
 }
 
-
+function getUserInfoFromDB(){
+    let request= new XMLHttpRequest();
+    request.open("post", "http://127.0.0.1/hui_pet/getUserInfo.php");
+    request.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+    request.onload = function(){
+        console.log("db: "+this.responseText);
+    }
+    request.send('{"uid":"user00001"}');
+}
 
 
 function formatDate(date, format, utc) {
