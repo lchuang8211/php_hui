@@ -14,7 +14,7 @@
 
         <table id="tb_insertUserInfo" style="margin: 0px auto;">
             <tr>
-                <td colspan="2" align="center"><img src="icon/people/user_default.png" width="120"> </td>
+                <td colspan="2" align="center"><img id="preview" src="icon/people/user_default.png" width="120"> </td>
             </tr>
             <tr>
                 <td colspan="2" align="center"> <form enctype="multipart/form-data" method="post" id="formUserPicture" action="http://127.0.0.1/uploadUserPicture.php">
@@ -124,11 +124,17 @@ $("#btnUploadUserPicture").click(function() {
     document.getElementById("userPicture").click();
 });
 $("#userPicture").change(function(e) {
-    let reader = new FileReader();
-    
-    reader.onload = function(e){
-        
-    }
+    var preview = document.querySelector('#preview');
+	var file    = document.querySelector('#userPicture').files[0];
+	var reader  = new FileReader();
+	
+	reader.addEventListener("load", function () {
+		preview.src = reader.result;
+	}, false);
+
+	if (file) {
+		reader.readAsDataURL(file);
+	}
 });
 
 $("#insert_hui_talking").click(function() {
